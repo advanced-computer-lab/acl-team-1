@@ -221,12 +221,12 @@ app.post('updateFlgihtByAirport/:id',async(req,res)=>{
 //Requirement ID: 8
 //code
 
-app.post('deleteFlgihtByID/:id/ :flightID',async(req,res)=>{
+app.post('deleteFlgihtByID/:id',async(req,res)=>{
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else{
-    const y=req.params.flightID; 
-    const x= await Flights.deleteOne(y);
+    const y=req.body.flightID; 
+    const x= await Flights.deleteOne({FightNumber: y});
     //res.send(x);
   }
 })
