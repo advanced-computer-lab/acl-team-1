@@ -122,12 +122,114 @@ app.get('/viewFlightByAirport/:id', async (req, res) => {
 
 //Requirement ID: 6
 //code
+app.get('/viewFlight/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+    let schedule = Flights.get();
+    res.send(schedule);
+  }
+});
 
 //Requirement ID: 7
 //code
 
+app.post('updateFlgihtByID/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+    
+    const y=req.body.flightID; 
+    const x= await Flights.findOneAndUpdate(y,{FlightNumber: req.body.flightnumber},{new: true});
+    res.send(x);
+  }
+})
+
+app.post('updateFlgihtByEconSeats/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+   
+    const y=req.body.flightID; 
+    const x= await Flights.findOneAndUpdate(y,{EconomySeats: req.body.economySeats},{new: true});
+    res.send(x);
+  }
+})
+
+app.post('updateFlgihtByBussSeats/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+   
+    const y=req.body.flightID; 
+    const x= await Flights.findOneAndUpdate(y,{BusinessClassSeats: req.body.businessClassSeats},{new: true});
+    res.send(x);
+  }
+})
+
+app.post('updateFlgihtByDeptTime/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+   
+    const y=req.body.flightID; 
+    const x= await Flights.findOneAndUpdate(y,{DepartureTime: req.body.departureTime},{new: true});
+    res.send(x);
+  }
+})
+app.post('updateFlgihtByArrivalTime/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+   
+    const y=req.body.flightID; 
+    const x= await Flights.findOneAndUpdate(y,{ArrivalTime: req.body.arrivalTime},{new: true});
+    res.send(x);
+  }
+})
+app.post('updateFlgihtByDeptDate/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+   
+    const y=req.body.flightID; 
+    const x= await Flights.findOneAndUpdate(y,{DepartureDate: req.body.departureDate},{new: true});
+    res.send(x);
+  }
+})
+app.post('updateFlgihtByArrivalDate/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+    
+    const y=req.body.flightID; 
+    const x= await Flights.findOneAndUpdate(y,{ArrivalDate: req.body.arrivalDate},{new: true});
+    res.send(x);
+  }
+})
+app.post('updateFlgihtByAirport/:id',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+  
+    const y=req.body.flightID; 
+    const x= await Flights.findOneAndUpdate({FlightNumber: y},{Airport: req.body.airport},{new: true});
+    res.send(x);
+  }
+})
+
 //Requirement ID: 8
 //code
+
+app.post('deleteFlgihtByID/:id/ :flightID',async(req,res)=>{
+  let search = await Admins.find({ AdminId: req.params.id })
+  if (search == null) console.log('This user is not an admin!')
+  else{
+    const y=req.params.flightID; 
+    const x= await Flights.deleteOne(y);
+    //res.send(x);
+  }
+})
 
 
 //////////////////////////////////////////////////////////////////////////////////
