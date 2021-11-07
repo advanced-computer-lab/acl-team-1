@@ -128,7 +128,20 @@ app.get('/viewFlightByAirport/:id', async (req, res) => {
 
 //Requirement ID: 8
 //code
+//Maged add this pop up box to your deletion code to confirm that the admin wants to delete
+//Add it according to what ur function does and how you want to name it, add the dialog box part
 
+/*private void deleteFlight(obj, e)
+{
+	DialogResult dialog = MessageBox.Show("Are you sure you want to delete this flight and all its details?", "Exit", MessageBoxButtons.YesNo); 
+	if(dialog == DialogResult.Yes)
+	{
+		//delete the flight;
+	}
+	else if (dialog == DialogResult.No)
+	{
+		e.Cancel = true;
+	*/
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -136,6 +149,17 @@ app.get('/viewFlightByAirport/:id', async (req, res) => {
 
 //Requirement ID: 9
 //code
+/*private void deleteFlight(obj, e)
+{
+	DialogResult dialog = MessageBox.Show("Are you sure you want to delete this flight and all its details?", "Exit", MessageBoxButtons.YesNo); 
+	if(dialog == DialogResult.Yes)
+	{
+		//delete the flight;
+	}
+	else if (dialog == DialogResult.No)
+	{
+		e.Cancel = true;
+	*/	
 
 //Requirement ID: 10
 //code
