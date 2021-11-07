@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const MongoURI = 'mongodb+srv://alaa:1234@cluster0.6ulyk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
-// App variables
+// App variables  
 const app = express();
 const port = process.env.PORT || "8000";
 const Users = require('./Models/User'); 

@@ -1,25 +1,94 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+//import injectTapEventPlugin from "react-tap-event-plugin";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import logo from "./logo.svg";
+import "./App.css";
+import Form from "./Form";
+import Table from "./Table";
+
+//injectTapEventPlugin();
+
+class App extends Component {
+  state = {
+    data: [],
+    editIdx: -1
+  };
+
+  handleRemove = i => {
+    this.setState(state => ({
+      data: state.data.filter((row, j) => j !== i)
+    }));
+  };
+
+  startEditing = i => {
+    this.setState({ editIdx: i });
+  };
+
+  stopEditing = () => {
+    this.setState({ editIdx: -1 });
+  };
+
+  handleChange = (e, name, i) => {
+    const { value } = e.target;
+    this.setState(state => ({
+      data: state.data.map(
+        (row, j) => (j === i ? { ...row, [name]: value } : row)
+      )
+    }));
+  };
+  render() {
+    return (
+      <MuiThemeProvider>
+        <div className="App">
+          <Form
+            onSubmit={submission =>
+              this.setState({
+                data: [...this.state.data, submission]
+              })}
+          />
+          <Table
+            handleRemove={this.handleRemove}
+            startEditing={this.startEditing}
+            editIdx={this.state.editIdx}
+            stopEditing={this.stopEditing}
+            handleChange={this.handleChange}
+            data={this.state.data}
+            header={[
+              {
+                name: "Flight Number",
+                prop: "flightnumber"
+              },
+              {
+                name: "Departure Time",
+                prop: "departuretime"
+              },
+              {
+                name: "Arrival Time",
+                prop: "arrivaltime"
+              },
+              {
+                name: "Economy Seats",
+                prop: "economyseats"
+              },
+              {
+                name: "Business Seats",
+                prop: "businessseats"
+              },
+              {
+                name: "Date",
+                prop: "dates"
+              },
+              {
+                name: "Airport",
+                prop: "airports"
+              }
+            ]}
+          />
+        </div>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default App;
