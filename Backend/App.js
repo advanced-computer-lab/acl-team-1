@@ -227,15 +227,15 @@ app.post('deleteFlgihtByID/:id',async(req,res)=>{
   else{
     const y=req.body.flightID; 
 
-    DialogResult dialog = MessageBox.Show("Are you sure you want to delete this flight and all its details?", "Exit", MessageBoxButtons.YesNo); 
-    if(dialog == DialogResult.Yes)
-    {
-        //delete the flight;
-        const x= await Flights.deleteOne({FightNumber: y});
-    }
-    else if (dialog == DialogResult.No)
-    {
-          e.Cancel = true;}
+    // DialogResult dialog = MessageBox.Show("Are you sure you want to delete this flight and all its details?", "Exit", MessageBoxButtons.YesNo); 
+    // if(dialog == DialogResult.Yes)
+    // {
+    //     //delete the flight;
+    //     const x= await Flights.deleteOne({FightNumber: y});
+    // }
+    // else if (dialog == DialogResult.No)
+    // {
+    //       e.Cancel = true;}
     
     //res.send(x);
   }
