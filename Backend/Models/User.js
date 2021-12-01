@@ -30,7 +30,7 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  PassportNumber: {
+  PassportNumber: { //KEY
     type: Number,
     required: true
   }
