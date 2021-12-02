@@ -352,12 +352,14 @@ app.post('deleteFlgihtByID/:id', async (req, res) => {
 
 //Requirement ID: 19
 app.get('/viewAvailableSeatsDepart', async (req, res) =>{
+
   let departureFlight = await Flights.find({FlightNumber: req.params.departureFlightNumber});
-  
+
   if(req.params.cabin.equals("Economy")){
   res.send(departureFlight.EconomySeats)
   }
-  if(req.params.cabin.equals("Business"){
+
+  if(req.params.cabin.equals("Business")){
   res.send(departureFlight.BusinessClassSeats)
   }
 
