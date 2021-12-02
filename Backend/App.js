@@ -368,7 +368,43 @@ app.get('/viewAvailableSeatsDepart', async (req, res) =>{
 
 //Requirement ID: 21
 
+app.get('/viewAvailableSeatsReturn', async (req, res) =>{
+
+  let returnFlight = await Flights.find({FlightNumber: req.params.returnFlightNumber});
+
+  if(req.params.cabin.equals("Economy")){
+  res.send(returnFlight.EconomySeats)
+  }
+
+  if(req.params.cabin.equals("Business")){
+  res.send(returnFlight.BusinessClassSeats)
+  }
+
+
+})
+
 //Requirement ID: 24
+
+app.get('/viewItinerary', async (req, res) => {
+  let searchDeparture = await Flights.find({ FlightNumber: req.params.departureFlightNumber });
+  let searchReservationDeparture = await Reservations.find({ FlightNumber: req.params.departureFlightNumber });
+  let searchArrival = await Flights.find({ FlightNumber: req.params.arrivalFlightNumber });
+  let searchReservationArrival = await Flights.find({ FlightNumber: req.params.departureFlightNumber });
+  if (searchDeparture == null || searchReservationDeparture) console.log('Flight not found!');
+  else {
+    res.write(searchDeparture);
+    res.write("");
+    res.write(searchReservationDeparture.Cabin, ", ", searchReservationDeparture.SeatNumber, ", ", searchReservationDeparture.FlightCost, ",", searchReservationDeparture.departureTime, ",", searchReservationDeparture.arrivalTime, ",", searchReservationDeparture.departureDate, ",", searchReservationDeparture.ArrivalDate, ",". searchReservationDeparture.bookingNumber);
+    res.end();
+  }
+  if (searchArrival == null || searchReservationArrival) console.log('Flight not found!');
+  else {
+    res.write(searchArrival);
+    res.write("");
+    res.write(searchReservationArrival.Cabin, ", ", searchReservationArrival.SeatNumber, ", ", searchReservationArrival.FlightCost, ",", searchReservationArrival.departureTime, ",". searchReservationArrival.arrivalTime, ",". searchReservationArrival.departureDate, ",", searchReservationArrival.arrivalDate, ",", searchReservationArrival.bookingNumber);
+    res.end();
+  }
+});
 
 //Requirement ID: 27.1
 
