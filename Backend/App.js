@@ -347,6 +347,33 @@ app.post('deleteFlgihtByID/:id', async (req, res) => {
 //Requirement ID: 10
 //code
 
+//Requirement ID: 18
+
+
+//Requirement ID: 19
+app.get('/viewAvailableSeatsDepart', async (req, res) =>{
+  let departureFlight = await Flights.find({FlightNumber: req.params.departureFlightNumber});
+  
+  if(req.params.cabin.equals("Economy")){
+  res.send(departureFlight.EconomySeats)
+  }
+  if(req.params.cabin.equals("Business"){
+  res.send(departureFlight.BusinessClassSeats)
+  }
+
+
+})
+
+//Requirement ID: 21
+
+//Requirement ID: 24
+
+//Requirement ID: 27.1
+
+//Requirement ID: 28
+
+//Requirement ID: 29.1
+
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
 });
