@@ -179,7 +179,7 @@ class App extends Component {
         </div>
       </MuiThemeProvider>
     );
-  }
+  } 
 }
 
 export default App;
