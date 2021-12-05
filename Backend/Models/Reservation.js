@@ -22,7 +22,7 @@ const reservationSchema = new Schema({
     type: String,
     required: true
   },
-  BookingNumber: {
+  BookingNumber: { //KEY
     type: Number,
     required: true
   }

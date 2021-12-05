@@ -205,7 +205,6 @@ app.put('/updateDetails', async (req, res) => {
 // Maged Wael - 43-14104
 
 //Requirement ID: 6
-//code
 app.get('/viewFlight/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
@@ -216,9 +215,7 @@ app.get('/viewFlight/:id', async (req, res) => {
 });
 
 //Requirement ID: 7
-//code
-
-app.post('updateFlgihtByID/:id', async (req, res) => {
+app.post('updateFlightByID/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -229,7 +226,7 @@ app.post('updateFlgihtByID/:id', async (req, res) => {
   }
 })
 
-app.post('updateFlgihtByEconSeats/:id', async (req, res) => {
+app.post('updateFlightByEconSeats/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -240,7 +237,7 @@ app.post('updateFlgihtByEconSeats/:id', async (req, res) => {
   }
 })
 
-app.post('updateFlgihtByBussSeats/:id', async (req, res) => {
+app.post('updateFlightByBussSeats/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -251,7 +248,7 @@ app.post('updateFlgihtByBussSeats/:id', async (req, res) => {
   }
 })
 
-app.post('updateFlgihtByDeptTime/:id', async (req, res) => {
+app.post('updateFlightByDeptTime/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -261,7 +258,8 @@ app.post('updateFlgihtByDeptTime/:id', async (req, res) => {
     res.send(x);
   }
 })
-app.post('updateFlgihtByArrivalTime/:id', async (req, res) => {
+
+app.post('updateFlightByArrivalTime/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -271,7 +269,8 @@ app.post('updateFlgihtByArrivalTime/:id', async (req, res) => {
     res.send(x);
   }
 })
-app.post('updateFlgihtByDeptDate/:id', async (req, res) => {
+
+app.post('updateFlightByDeptDate/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -281,7 +280,8 @@ app.post('updateFlgihtByDeptDate/:id', async (req, res) => {
     res.send(x);
   }
 })
-app.post('updateFlgihtByArrivalDate/:id', async (req, res) => {
+
+app.post('updateFlightByArrivalDate/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -291,7 +291,8 @@ app.post('updateFlgihtByArrivalDate/:id', async (req, res) => {
     res.send(x);
   }
 })
-app.post('updateFlgihtByAirport/:id', async (req, res) => {
+
+app.post('updateFlightByAirport/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -303,9 +304,7 @@ app.post('updateFlgihtByAirport/:id', async (req, res) => {
 })
 
 //Requirement ID: 8
-//code
-
-app.post('deleteFlgihtByID/:id', async (req, res) => {
+app.post('deleteFlightByID/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -351,40 +350,38 @@ app.post('deleteFlgihtByID/:id', async (req, res) => {
 
 
 //Requirement ID: 19
-app.get('/viewAvailableSeatsDepart', async (req, res) =>{
+app.get('/viewAvailableSeatsDepart', async (req, res) => {
 
-  let departureFlight = await Flights.find({FlightNumber: req.params.departureFlightNumber});
+  let departureFlight = await Flights.find({ FlightNumber: req.params.departureFlightNumber });
 
-  if(req.params.cabin.equals("Economy")){
-  res.send(departureFlight.EconomySeats)
+  if (req.params.cabin.equals("Economy")) {
+    res.send(departureFlight.EconomySeats)
   }
 
-  if(req.params.cabin.equals("Business")){
-  res.send(departureFlight.BusinessClassSeats)
+  if (req.params.cabin.equals("Business")) {
+    res.send(departureFlight.BusinessClassSeats)
   }
 
 
 })
 
 //Requirement ID: 21
+app.get('/viewAvailableSeatsReturn', async (req, res) => {
 
-app.get('/viewAvailableSeatsReturn', async (req, res) =>{
+  let returnFlight = await Flights.find({ FlightNumber: req.params.returnFlightNumber });
 
-  let returnFlight = await Flights.find({FlightNumber: req.params.returnFlightNumber});
-
-  if(req.params.cabin.equals("Economy")){
-  res.send(returnFlight.EconomySeats)
+  if (req.params.cabin.equals("Economy")) {
+    res.send(returnFlight.EconomySeats)
   }
 
-  if(req.params.cabin.equals("Business")){
-  res.send(returnFlight.BusinessClassSeats)
+  if (req.params.cabin.equals("Business")) {
+    res.send(returnFlight.BusinessClassSeats)
   }
 
 
 })
 
 //Requirement ID: 24
-
 app.get('/viewItinerary', async (req, res) => {
   let searchDeparture = await Flights.find({ FlightNumber: req.params.departureFlightNumber });
   let searchReservationDeparture = await Reservations.find({ FlightNumber: req.params.departureFlightNumber });
@@ -394,14 +391,14 @@ app.get('/viewItinerary', async (req, res) => {
   else {
     res.write(searchDeparture);
     res.write("");
-    res.write(searchReservationDeparture.Cabin, ", ", searchReservationDeparture.SeatNumber, ", ", searchReservationDeparture.FlightCost, ",", searchReservationDeparture.departureTime, ",", searchReservationDeparture.arrivalTime, ",", searchReservationDeparture.departureDate, ",", searchReservationDeparture.ArrivalDate, ",". searchReservationDeparture.BookingNumber);
+    res.write(searchReservationDeparture.Cabin, ", ", searchReservationDeparture.SeatNumber, ", ", searchReservationDeparture.FlightCost, ",", searchReservationDeparture.departureTime, ",", searchReservationDeparture.arrivalTime, ",", searchReservationDeparture.departureDate, ",", searchReservationDeparture.ArrivalDate, ",".searchReservationDeparture.BookingNumber);
     res.end();
   }
   if (searchArrival == null || searchReservationArrival) console.log('Flight not found!');
   else {
     res.write(searchArrival);
     res.write("");
-    res.write(searchReservationArrival.Cabin, ", ", searchReservationArrival.SeatNumber, ", ", searchReservationArrival.FlightCost, ",", searchReservationArrival.departureTime, ",". searchReservationArrival.arrivalTime, ",". searchReservationArrival.departureDate, ",", searchReservationArrival.arrivalDate, ",", searchReservationArrival.BookingNumber);
+    res.write(searchReservationArrival.Cabin, ", ", searchReservationArrival.SeatNumber, ", ", searchReservationArrival.FlightCost, ",", searchReservationArrival.departureTime, ",".searchReservationArrival.arrivalTime, ",".searchReservationArrival.departureDate, ",", searchReservationArrival.arrivalDate, ",", searchReservationArrival.BookingNumber);
     res.end();
   }
 });
