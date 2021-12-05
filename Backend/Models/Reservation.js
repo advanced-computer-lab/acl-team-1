@@ -21,6 +21,10 @@ const reservationSchema = new Schema({
   Cabin: {
     type: String,
     required: true
+  },
+  BookingNumber: {
+    type: Number,
+    required: true
   }
 }, { timestamps: true });
 

@@ -394,14 +394,14 @@ app.get('/viewItinerary', async (req, res) => {
   else {
     res.write(searchDeparture);
     res.write("");
-    res.write(searchReservationDeparture.Cabin, ", ", searchReservationDeparture.SeatNumber, ", ", searchReservationDeparture.FlightCost, ",", searchReservationDeparture.departureTime, ",", searchReservationDeparture.arrivalTime, ",", searchReservationDeparture.departureDate, ",", searchReservationDeparture.ArrivalDate, ",". searchReservationDeparture.bookingNumber);
+    res.write(searchReservationDeparture.Cabin, ", ", searchReservationDeparture.SeatNumber, ", ", searchReservationDeparture.FlightCost, ",", searchReservationDeparture.departureTime, ",", searchReservationDeparture.arrivalTime, ",", searchReservationDeparture.departureDate, ",", searchReservationDeparture.ArrivalDate, ",". searchReservationDeparture.BookingNumber);
     res.end();
   }
   if (searchArrival == null || searchReservationArrival) console.log('Flight not found!');
   else {
     res.write(searchArrival);
     res.write("");
-    res.write(searchReservationArrival.Cabin, ", ", searchReservationArrival.SeatNumber, ", ", searchReservationArrival.FlightCost, ",", searchReservationArrival.departureTime, ",". searchReservationArrival.arrivalTime, ",". searchReservationArrival.departureDate, ",", searchReservationArrival.arrivalDate, ",", searchReservationArrival.bookingNumber);
+    res.write(searchReservationArrival.Cabin, ", ", searchReservationArrival.SeatNumber, ", ", searchReservationArrival.FlightCost, ",", searchReservationArrival.departureTime, ",". searchReservationArrival.arrivalTime, ",". searchReservationArrival.departureDate, ",", searchReservationArrival.arrivalDate, ",", searchReservationArrival.BookingNumber);
     res.end();
   }
 });
