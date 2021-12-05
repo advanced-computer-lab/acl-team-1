@@ -31,11 +31,11 @@ const flightSchema = new Schema({
         required: true
     },
     BusinessClassSeats: {
-        type: String,
+        type: Number,
         required: true
     },
     FirstClassSeats:{
-        type: String,
+        type: Number,
         reqiored: true
     },
     Airport: {
