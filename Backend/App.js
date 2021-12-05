@@ -346,6 +346,163 @@ app.post('deleteFlightByID/:id', async (req, res) => {
 //Requirement ID: 10
 //code
 
+//Requiremnt ID: 11
+app.get('/searchEconomyFlights',async(req,res)=>{
+
+  let flightx= await Flights.find({DepartureDate: req.body.DepartureDate, ArrivalDate: req.body.ArrivalDate, DepartureAirport: req.body.DepartureAirport, 
+    ArrivalAirport: req.body.ArrivalAirport , Cabin: req.body.Cabin})
+    if(!(flightx.equals(null))){
+      if(flightx.EconomySeats>0){
+        res.send(flightx)
+      }
+      else{
+        res.send("no Seats on this flight")  
+      }
+    }
+    else{
+      res.send("no flgihts matching your inputs")
+    }
+  })
+  /////
+  
+  app.get('/searchBusinessFlights',async(req,res)=>{
+  
+   let flightx= await Flights.find({DepartureDate: req.body.DepartureDate, ArrivalDate: req.body.ArrivalDate, DepartureAirport: req.body.DepartureAirport, 
+     ArrivalAirport: req.body.ArrivalAirport , Cabin: req.body.Cabin})
+     if(!(flightx.equals(null))){
+       if(flightx.BusinessClassSeats>0){
+         res.send(flightx)
+       }
+       else{
+         res.send("no Seats on this flight")  
+       }
+     }
+     else{
+       res.send("no flgihts matching your inputs")
+     }
+   })
+  /////
+  
+  app.get('/searchFirstFlights',async(req,res)=>{
+  
+  
+   let flightx= await Flights.find({DepartureDate: req.body.DepartureDate, ArrivalDate: req.body.ArrivalDate, DepartureAirport: req.body.DepartureAirport, 
+     ArrivalAirport: req.body.ArrivalAirport , Cabin: req.body.Cabin})
+     if(!(flightx.equals(null))){
+       if(flightx.FirstClassSeats>0){
+         res.send(flightx)
+       }
+       else{
+         res.send("no Seats on this flight")  
+       }
+     }
+     else{
+       res.send("no flgihts matching your inputs")
+     }
+   })
+  //Requiremnt ID: 12,13
+  app.get('/ChooseFlight',async(req,res)=>{
+    let flightx= await Flights.find({FlightNumber: req.body.FlightNumber})
+    
+    if(flightx.equals(null)){
+      res.send("invalid flight number")
+      
+    }
+  
+    else{
+      res.send(flightx)
+    }
+  })
+  /*
+  //Requirment ID: 13
+  app.get('/searchFlights/:FlightNumber',async(req,res)=>{
+      let flightx = await Flights.find({FlightNumber:req.params.FlightNumber})
+    if(flightx.equals(null)){
+      res.send("the flight number is incorrect")
+    }
+    else{
+      res.send(flightx)
+    }
+  })  */
+  
+  //Requirment ID: 14
+  /* app.get('/searchReturnFlights',async(req,res)=>{
+    let flightx= await Flights.find({DepartureDate: req.body.DepartureDate, ArrivalDate: req.body.ArrivalDate, DepartureAirport: req.body.DepartureAirport, 
+      ArrivalAirport: req.body.ArrivalAirport , Cabin: req.body.Cabin})
+      if(!(flightx.equals(null))){
+        res.send(flightx)
+      }
+      else{
+        res.send("no matching flights found")
+      }
+  
+   })
+  */
+   ///////////
+   app.get('/searchReturnEconomyFlights',async(req,res)=>{
+  
+    let flightx= await Flights.find({DepartureDate: req.body.DepartureDate, ArrivalDate: req.body.ArrivalDate, DepartureAirport: req.body.DepartureAirport, 
+      ArrivalAirport: req.body.ArrivalAirport , Cabin: req.body.Cabin})
+      if(!(flightx.equals(null))){
+        if(flightx.EconomySeats>0){
+          res.send(flightx)
+        }
+        else{
+          res.send("no Seats on this flight")  
+        }
+      }
+      else{
+        res.send("no flgihts matching your inputs")
+      }
+    })
+  
+   app.get('/searchReturnBusinessFlights',async(req,res)=>{
+  
+    let flightx= await Flights.find({DepartureDate: req.body.DepartureDate, ArrivalDate: req.body.ArrivalDate, DepartureAirport: req.body.DepartureAirport, 
+      ArrivalAirport: req.body.ArrivalAirport , Cabin: req.body.Cabin})
+      if(!(flightx.equals(null))){
+        if(flightx.BusinessClassSeats>0){
+          res.send(flightx)
+        }
+        else{
+          res.send("no Seats on this flight")  
+        }
+      }
+      else{
+        res.send("no flgihts matching your inputs")
+      }
+    })
+    app.get('/searchReturnFirstFlights',async(req,res)=>{
+  
+      let flightx= await Flights.find({DepartureDate: req.body.DepartureDate, ArrivalDate: req.body.ArrivalDate, DepartureAirport: req.body.DepartureAirport, 
+        ArrivalAirport: req.body.ArrivalAirport , Cabin: req.body.Cabin})
+        if(!(flightx.equals(null))){
+          if(flightx.FirstClassSeats>0){
+            res.send(flightx)
+          }
+          else{
+            res.send("no Seats on this flight")  
+          }
+        }
+        else{
+          res.send("no flgihts matching your inputs")
+        }
+      })
+  
+   //Requirment ID: 15,16
+   app.get('/ChooseReturnFlight', async(req,res)=>{
+     let flightx = await Flights.find({FlightNumber: req.body.FlightNumber})
+     if (flightx.equals(null)){
+       res.send("The Flight number is incorrect")
+     }
+     else{
+       res.send(flightx)
+     }
+   })
+  
+
+
+
 //Requirement ID: 18
 
 
