@@ -11,6 +11,8 @@ const Admins = require('./Models/Admin');
 const Flights = require('./Models/Flight');
 const Reservations = require('./Models/Reservation');
 
+const nodemailer = require('nodemailer')
+
 // Mongo DB
 mongoose.connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => console.log("MongoDB is now connected"))
@@ -406,6 +408,29 @@ app.get('/viewItinerary', async (req, res) => {
 //Requirement ID: 27.1
 
 //Requirement ID: 28
+app.post('/sendEmail', async (req,res) =>{
+  let searchReservationDeparture = await Reservations.find({ FlightNumber: req.params.departureFlightNumber });
+  let searchReservationArrival = await Flights.find({ FlightNumber: req.params.departureFlightNumber });
+  var transporter = nodemailer.createTransport(
+    {
+    service: 'gmail',
+    auth: {
+    user: 'myemail@gmail.com',
+    pass: 'password'
+    }
+    }
+    );
+  
+    const mailOptions = {
+      from: 'The Idea project',
+      to: toAddress,
+      subject: 'Your Reservation has been cancelled',
+      text: "Amount Refunded" + searchReservationArrival.FlightCost + searchReservationDeparture.FlightCost
+      };
+transporter.sendMail(mailOptions, callback);
+
+})
+
 
 //Requirement ID: 29.1
 
