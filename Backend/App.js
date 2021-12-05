@@ -1,7 +1,7 @@
 // External variables
 const express = require("express");
 const mongoose = require('mongoose');
-const MongoURI = 'mongodb+srv://alaa:1234@cluster0.6ulyk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const MongoURI = 'mongodb+srv://dbUser:dbPassword@milestone2.y9ftu.mongodb.net/Milestone2?retryWrites=true&w=majority';
 
 // App variables  
 const app = express();
@@ -195,7 +195,7 @@ app.delete('/deleteReservedFlight', async (req, res) => {
 
 //Requirement ID: 29
 app.put('/updateDetails', async (req, res) => {
-  let update = await Users.findOneAndUpdate({ PassportNumber: req.params.passportNumber }, { FirstName: req.params.firstName, LastName: req.params.lastName, Age: req.params.age, HomeAddress: req.params.address, CountryCode = req.params.code, PhoneNumber: req.params.number, Email: req.params.email, PassportNumber: req.params.passportNumber }, { new: true })
+  let update = await Users.findOneAndUpdate({ PassportNumber: req.params.passportNumber }, { FirstName: req.params.firstName, LastName: req.params.lastName, Age: req.params.age, HomeAddress: req.params.address, CountryCode: req.params.code, PhoneNumber: req.params.number, Email: req.params.email, PassportNumber: req.params.passportNumber }, { new: true })
   if (update.length == 0) console.log('Update Failed!');
   else console.log("Updated user :", update.firstName, " ", update.lastName)
 })
