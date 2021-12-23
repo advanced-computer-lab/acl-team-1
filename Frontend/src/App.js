@@ -14,26 +14,24 @@ import MyBookings from "./Components/MyBooking";
 import Bookings from "./Components/Bookings";
 import Flights from "./Components/Flights";
 import Payments from "./Components/Payments";
-import SuccessPage from "./Components/SuccessorPage";
+import SuccessorPage from "./Components/SuccessorPage";
 import CancelPage from "./Components/CancelPage";
-import States from "./States";
+import states from "./States";
 
-import auth from "./Components/auth";
+import authGuard from "./Components/auth";
 import adminGuard from "./Components/adminGuard";
 
-
-const jwtToken = localStorage.getItem("JWT_Token");
-const authHeader = "Bearer" + jwtToken;
+const jwtToken = localStorage.getItem("JWT_TOKEN");
+const authHeader = "Bearer " + jwtToken;
 console.log(authHeader);
 
 axios.defaults.headers.common["Authorization"] = authHeader;
 
-
-function App(){
+function App() {
   return (
     <Provider
       store={createStore(
-        States,
+        states,
         {
           auth: {
             isAuthenticated: jwtToken ? true : false,
@@ -65,25 +63,25 @@ function App(){
               path="/book"
               exact
               strict
-              component={auth(BookFlight)}
+              component={authGuard(BookFlight)}
             />
             <Route
               path="/payments"
               exact
               strict
-              component={auth(Payments)}
+              component={authGuard(Payments)}
             />
             <Route
               path="/successpage"
               exact
               strict
-              component={auth(SuccessPage)}
+              component={authGuard(SuccessorPage)}
             />
             <Route
               path="/cancelpage"
               exact
               strict
-              component={auth(CancelPage)}
+              component={authGuard(CancelPage)}
             />
             <Route path="/signup" exact strict component={SignUp} />
             <Route path="/signin" exact strict component={SignIn} />
@@ -91,7 +89,7 @@ function App(){
               path="/mybookings"
               exact
               strict
-              component={auth(MyBookings)}
+              component={authGuard(MyBookings)}
             />
           </div>
           {/* </Header> */}
@@ -101,5 +99,4 @@ function App(){
   );
 }
 
-export default App; 
-
+export default App;
