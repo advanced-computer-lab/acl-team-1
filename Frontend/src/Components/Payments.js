@@ -25,7 +25,7 @@ function Payments({ flight, user, userDetails, bookFlight, clearBooking }) {
   let history = useHistory();
 
   const api = axios.create({
-    baseURL: `http://localhost:9100/bookings`,
+    baseURL: `http://localhost:8000/bookings`,
   });
   function getEmail() {
     if (user.method === "local") {
