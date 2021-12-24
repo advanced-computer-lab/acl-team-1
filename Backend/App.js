@@ -233,6 +233,15 @@ app.put('/updateDetails', async (req, res) => {
   else console.log("Updated user :", update.firstName, " ", update.lastName)
 })
 
+//Requirement ID: 1
+//Requirement ID: 1.1
+//Requirement ID: 1.2
+//Requirement ID: 1.3
+//Requirement ID: 34
+//Requirement ID: 35
+//Requirement ID: 46
+//Requirement ID: 47
+
 //////////////////////////////////////////////////////////////////////////////////
 
 // Maged Wael - 43-14104
