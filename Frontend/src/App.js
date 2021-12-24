@@ -72,7 +72,7 @@ function App() {
               component={authGuard(Payments)}
             />
             <Route
-              path="/successpage"
+              path="/successorpage"
               exact
               strict
               component={authGuard(SuccessorPage)}
