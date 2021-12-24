@@ -74,7 +74,7 @@ module.exports = {
     const payment_capture = 1;
     const amount = req.body.fare * 100;
     console.log(amount);
-    const currency = "INR";
+    const currency = "USD";
     const receipt = shortid.generate();
     try {
       const response = await instance.orders.create({
