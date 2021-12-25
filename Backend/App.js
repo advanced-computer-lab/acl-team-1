@@ -12,6 +12,18 @@ const Flights = require('./Models/Flight');
 const Reservations = require('./Models/Reservation');
 const Reservation = require("./Models/Reservation");
 
+
+var bodyParser = require('body-parser')
+
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+// const nodemailer = require('nodemailer')
+
 // Mongo DB
 mongoose.connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => console.log("MongoDB is now connected"))
@@ -38,6 +50,27 @@ app.get("/addAdmin", async (req, res) => {
   await admin.save().then(console.log("Admin Inserted."));
 });
 
+app.get("/addFlight", async (req, res) => {
+
+  const flight = new Flights({
+    FlightNumber: 1234,
+    Cabin: "Economy",
+    DepartureTime: "11:30",
+    ArrivalTime: "12:30",
+    DepartureDate: "1/1",
+    ArrivalDate: "2/1",
+    EconomySeats: 2,
+    BusinessClassSeats: 2,
+    FirstClassSeats: 2,
+    Airport: "LAX",
+    Cost: 5,
+    DepartureAirport: "EGYPT",
+    ArrivalAirport: "usa"
+  })
+
+  await flight.save().then(console.log("Flight Inserted."));
+});
+
 //Requirement ID: 4
 app.post('/addFlight/:id', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
@@ -58,7 +91,7 @@ app.post('/addFlight/:id', async (req, res) => {
 })
 
 //Requirement ID: 5
-app.get('/viewFlightByFlightNumber/:id', async (req, res) => {
+app.get('/viewFlightByFlightNumber/:id/:flightNumber', async (req, res) => {
   let search = await Admins.find({ AdminId: req.params.id })
   if (search == null) console.log('This user is not an admin!')
   else {
@@ -144,15 +177,15 @@ app.get('/viewSummary', async (req, res) => {
 app.put('/reserveSeatDeparture', async (req, res) => {
   var update;
   var update2;
-  if (req.params.cabin.equals("Economy"))
-    if (await Flights.find({ FlightNumber: req.params.flightNumber }).EconomySeats > 0) {
-      update = await Flights.findOneAndUpdate({ FlightNumber: req.params.flightNumber }, { $inc: { EconomySeats: -1 } }, { new: true })
-      update2 = await Reservations.findOneAndUpdate({ FlightNumber: req.params.flightNumber, PassportNumber: req.body.passportNumber }, { Cabin: "Economy", SeatNumber: update.EconomySeats }, { new: true })
+  if (req.body.cabin.equals("Economy"))
+    if (await Flights.find({ FlightNumber: req.body.flightNumber }).EconomySeats > 0) {
+      update = await Flights.findOneAndUpdate({ FlightNumber: req.body.flightNumber }, { $inc: { EconomySeats: -1 } }, { new: true })
+      update2 = await Reservations.findOneAndUpdate({ FlightNumber: req.body.flightNumber, PassportNumber: req.body.passportNumber }, { Cabin: "Economy", SeatNumber: update.EconomySeats }, { new: true })
     }
-  if (req.params.cabin.equals("Business"))
-    if (await Flights.find({ FlightNumber: req.params.flightNumber }).BusinessClassSeats > 0) {
-      update = await Flights.findOneAndUpdate({ FlightNumber: req.params.flightNumber }, { $inc: { BusinessClassSeats: -1 } }, { new: true })
-      update2 = await Reservations.findOneAndUpdate({ FlightNumber: req.params.flightNumber, PassportNumber: req.body.passportNumber }, { Cabin: "Business", SeatNumber: update.EconomySeats }, { new: true })
+  if (req.body.cabin.equals("Business"))
+    if (await Flights.find({ FlightNumber: req.body.flightNumber }).BusinessClassSeats > 0) {
+      update = await Flights.findOneAndUpdate({ FlightNumber: req.body.flightNumber }, { $inc: { BusinessClassSeats: -1 } }, { new: true })
+      update2 = await Reservations.findOneAndUpdate({ FlightNumber: req.body.flightNumber, PassportNumber: req.body.passportNumber }, { Cabin: "Business", SeatNumber: update.EconomySeats }, { new: true })
     }
   if (update.length == 0 || update2.length == 0) console.log('Update Failed!');
   else console.log("Updated reservation for flight :", update.FlightNumber);
@@ -200,6 +233,15 @@ app.put('/updateDetails', async (req, res) => {
   if (update.length == 0) console.log('Update Failed!');
   else console.log("Updated user :", update.firstName, " ", update.lastName)
 })
+
+//Requirement ID: 1
+//Requirement ID: 1.1
+//Requirement ID: 1.2
+//Requirement ID: 1.3
+//Requirement ID: 34
+//Requirement ID: 35
+//Requirement ID: 46
+//Requirement ID: 47
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -697,6 +739,29 @@ app.get('/viewItinerary', async (req, res) => {
 //Requirement ID: 27.1
 
 //Requirement ID: 28
+app.post('/sendEmail', async (req,res) =>{
+  let searchReservationDeparture = await Reservations.find({ FlightNumber: req.params.departureFlightNumber });
+  let searchReservationArrival = await Flights.find({ FlightNumber: req.params.departureFlightNumber });
+  var transporter = nodemailer.createTransport(
+    {
+    service: 'gmail',
+    auth: {
+    user: 'myemail@gmail.com',
+    pass: 'password'
+    }
+    }
+    );
+  
+    const mailOptions = {
+      from: 'The Idea project',
+      to: toAddress,
+      subject: 'Your Reservation has been cancelled',
+      text: "Amount Refunded" + searchReservationArrival.FlightCost + searchReservationDeparture.FlightCost
+      };
+transporter.sendMail(mailOptions, callback);
+
+})
+
 
 //Requirement ID: 29.1
 
