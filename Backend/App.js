@@ -10,6 +10,7 @@ const Users = require('./Models/User');
 const Admins = require('./Models/Admin');
 const Flights = require('./Models/Flight');
 const Reservations = require('./Models/Reservation');
+const Reservation = require("./Models/Reservation");
 
 
 var bodyParser = require('body-parser')
@@ -366,6 +367,139 @@ app.post('deleteFlightByID/:id', async (req, res) => {
   }
 })
 
+//SPRINT 3
+
+//Requirment ID: 2,2.1
+
+app.get('/signin',async(req,res)=>{
+    let x = await Users.find({Username:req.body.Username, Password: req.body.password})
+   
+
+    if(search==null){
+      Console.log("username or password are invalid, try again.")
+    }
+    else{
+      window.location.replace("http://localhost:8000/ChooseFlight")
+    }
+})
+
+//Requirement ID: 30
+
+app.post('/changePasswordByID/:id',async(req,res)=>{
+  let search =await Users.find({PassportNumber: req.params.id})
+  if(search== null){
+    console.log("this user doesnt exist")
+  }
+  else{
+    search.password== req.body.newPassword
+  }
+
+})
+
+//Requiremnet ID: 32
+
+app.post('/changeSeatInDeptFlight/:id',async(req,res)=>{
+  let search = await Reservation.find({PassportNumber: req.params.id, FlightNumber: req.body.flightnumber})
+  if(search==null){
+    console.log("This reservation doesn't exist")
+  }
+  else{
+    search.SeatNumber=req.body.newseatnumber
+    console.log("seat has been changed")
+  }
+
+})
+
+//Requirment ID: 37
+app.get('/departureDepartureFlightDeatails/:id',async(req,res)=>{
+    let search = await Flights.find({FlightNumber: req.params.id})
+    if(search==null)
+      console.log("error 404")
+    else{
+      res.send(search.FlightNumber,search.Cabin,search.DepartureTime,search.ArrivalTime,search.Duration,search.Baggage)
+    }
+})
+
+//Requiremnet ID: 39
+app.get('/departureSeatsConffirm/:cabin',async(req,res)=>{
+  let search= await Flights.find({FlightNUmber:req.body.flightnumber, Cabin: req.params.cabin})
+  if(serach==null){
+    console.log("this flight is not found")
+  }
+  else if( search.full){
+    console.log("this flight is full")
+  }
+  else{
+    window.replace.location('/')
+  }
+
+})
+
+//Requiremnet ID: 44
+
+app.post('/changeSeatInArrivFlight/:id',async(req,res)=>{
+  let search = await Reservation.find({PassportNumber: req.params.id, FlightNumber: req.body.flightnumber})
+  if(search==null){
+    console.log("This reservation doesn't exist")
+  }
+  else{
+    search.SeatNumber=req.body.newseatnumber
+    console.log("seat has been changed")
+  }
+
+})
+
+//Requirment ID: 49
+app.get('/departureArrivalFlightDeatails/:id',async(req,res)=>{
+  let search = await Flights.find({FlightNumber: req.params.id})
+  if(search==null)
+    console.log("error 404")
+  else{
+    res.send(search.FlightNumber,"\n",search.Cabin,"\n",search.DepartureTime,"\n",search.ArrivalTime,"\n",search.Duration,"\n",search.Baggage)
+  }
+})
+//Requirment ID: 51
+///////////////////////////////// NOT DONE ////////////////
+app.get('/returnSeatsConffirm/:cabin',async(req,res)=>{
+  let search= await Flights.find({FlightNUmber:req.body.flightnumber, Cabin: req.params.cabin})
+  if(serach==null){
+    console.log("this flight is not found")
+  }
+  else if( search.full){
+    console.log("this flight is full")
+  }
+  else{
+      window.replace.location('/')
+  }
+
+})
+//Requirment ID: 52
+app.post('/changeSeatInArrivFlightByCabin/:id',async(req,res)=>{
+  let search = await Reservation.find({PassportNumber: req.params.id, FlightNumber: req.body.flightnumber})
+  if(search==null){
+    console.log("This reservation doesn't exist")
+  }
+  else{
+    let x= req.body.newCabin
+    search.Cabin=x
+    search.SeatNumber=req.body.newseatnumber
+    console.log("seat & cabin have been changed")
+  }
+
+})
+//Requirment ID: 42,54
+app.get('/itinerary/:pid/:bid',async(req,res)=>{
+  let search = await Reservation.find({PassportNumber: req.params.pid, BookingNumber: req.params.bid})
+  let x= search.FlightNumber
+  let search2 = await Flights.find({FlightNumber: x})
+  if(search2==null){
+    console.log("you have no flights planned")
+  }
+  else{
+    res.send(search2.FlightNumber,"\n",search2.DepartureAirport,"\n",search2.ArrivalAirport,"\n", search2.DepartureDate,"\n", search2.AepartureTime,"\n", 
+    search2.ArrivalTime,"\n", search2.Baggage,"\n", search2.Cabin, "\n", search.SeatNumber)
+  }
+})
 
 //////////////////////////////////////////////////////////////////////////////////
 
