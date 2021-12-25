@@ -21,6 +21,8 @@ import states from "./States";
 import authGuard from "./Components/auth";
 import adminGuard from "./Components/adminGuard";
 
+import SeatBooking from "./Components/SeatBooking";
+
 const jwtToken = localStorage.getItem("JWT_TOKEN");
 const authHeader = "Bearer " + jwtToken;
 console.log(authHeader);
@@ -65,6 +67,13 @@ function App() {
               strict
               component={authGuard(BookFlight)}
             />
+            <Route
+              path="/seatbooking"
+              exact
+              strict
+              component={authGuard(SeatBooking)}
+              />
+            
             <Route
               path="/payments"
               exact
