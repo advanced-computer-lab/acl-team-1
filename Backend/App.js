@@ -234,14 +234,53 @@ app.put('/updateDetails', async (req, res) => {
   else console.log("Updated user :", update.firstName, " ", update.lastName)
 })
 
-//Requirement ID: 1
-//Requirement ID: 1.1
-//Requirement ID: 1.2
-//Requirement ID: 1.3
+//Requirement ID: 1, 1.1, 1.2, 1.3
+var crypto = require('crypto');
+
+app.get("/signUp", async (req, res, next) => {
+
+  const user = new Users({
+    FirstName: req.body.first,
+    LastName: req.body.last,
+    HomeAddress: req.body.home,
+    CountryCode: req.body.country,
+    PhoneNumber: req.body.phone,
+    Email: req.body.email,
+    PassportNumber: req.body.passport,
+    Username: req.body.username,
+    Password: req.body.password
+  })
+
+  var hash = crypto.createHash('md5').update(req.body.password).digest('hex');
+
+  user.Password = hash;
+
+  await user.save().then(console.log("User Inserted."));
+});
+
 //Requirement ID: 34
-//Requirement ID: 35
+app.get('/viewFlightByDepartureDateAndCabin', async (req, res) => {
+  let search = await Flights.find({ DepartureDate: req.body.date, Cabin: req.body.cabin })
+  if (search == null) console.log('Flight not found!')
+  else
+    res.send(search);
+});
+
+//Requirement ID: 35, 47
+app.get('/searchDepartureOrArrival', async (req, res) => {
+  let search = await Flights.find({ FlightNumber: req.body.flightnum, DepartureTime: req.body.deptime, ArrivalTime: req.body.arrtime, TripDuration: req.body.duration })
+  if (search == null) console.log('Flight not found!')
+  else
+    res.send(search);
+});
+
 //Requirement ID: 46
-//Requirement ID: 47
+app.get('/viewFlightByArrivalDateAndCabin', async (req, res) => {
+  let search = await Flights.find({ ArrivalDate: req.body.date, Cabin: req.body.cabin })
+  if (search == null) console.log('Flight not found!')
+  else
+    res.send(search);
+});
 
 //////////////////////////////////////////////////////////////////////////////////
 

@@ -33,6 +33,12 @@ const userSchema = new Schema({
   PassportNumber: { //KEY
     type: Number,
     required: true
+  },
+  Username: {
+    type: String,
+  },
+  Password: {
+    type: String,
   }
 }, { timestamps: true });
 

@@ -53,6 +53,9 @@ const flightSchema = new Schema({
     ArrivalAirport:{
         type: String,
         require: true 
+    },
+    TripDuration:{
+        type:Number
     }
 }, { timestamps: true });
 
